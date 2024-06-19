@@ -11,6 +11,9 @@ namespace BiblicallyAccurateLasers
     {
         internal static BiblicallyAccurateLasers Instance;
 
+        internal TextureStrings SpriteDict { get; private set; }
+        public static Sprite GetSprite(string name) => Instance.SpriteDict.Get(name);
+
         //public override List<ValueTuple<string, string>> GetPreloadNames()
         //{
         //    return new List<ValueTuple<string, string>>
@@ -27,8 +30,26 @@ namespace BiblicallyAccurateLasers
             Log("Initializing");
 
             Instance = this;
+            SpriteDict = new TextureStrings();
+
+            ModHooks.OnEnableEnemyHook += EnemyEnabled;
 
             Log("Initialized");
+        }
+
+        private bool EnemyEnabled(GameObject enemy, bool isAlreadyDead)
+        {
+            if (enemy.name.Contains("Radiance"))
+            {
+                GameObject eye = new GameObject();
+                eye.AddComponent<SpriteRenderer>();
+                eye.GetComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.EyeKey);
+                eye.SetActive(true);
+                eye.transform.parent = enemy.transform;
+                eye.transform.localPosition = new Vector3(-0.1f, 1.5f, 0f);
+            }
+
+            return isAlreadyDead;
         }
     }
 }
