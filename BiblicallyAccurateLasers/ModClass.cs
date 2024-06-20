@@ -41,8 +41,12 @@ namespace BiblicallyAccurateLasers
         {
             if (enemy.name.Contains("Radiance"))
             {
-                GameObject crown = GameObjectSpawns.Crown(enemy.transform, new Vector3(-0.1f, 2f, 0f), Vector3.one);
-                GameObject eyeRing = GameObjectSpawns.EyeRing(7);
+                GameObject crown = GameObjectSpawns.SpawnEyeCrown();
+                crown.transform.parent = enemy.transform;
+                crown.transform.localPosition = new Vector3(-0.1f, 2f, 0f);
+                crown.transform.localScale = Vector3.one;
+
+                GameObject eyeRing = GameObjectSpawns.SpawnEyeRing();
                 eyeRing.transform.parent = enemy.transform;
                 eyeRing.transform.localPosition = new Vector3(-0.1f, 1.5f, 0f);
                 eyeRing.transform.localScale = Vector3.one * 3;

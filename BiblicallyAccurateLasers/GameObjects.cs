@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BiblicallyAccurateLasers
 {
     internal static class GameObjectSpawns
     {
-        public static GameObject EyeRing(int eyes)
+        public static GameObject SpawnEyeRing(int eyes = 10)
         {
             GameObject ringHolder = new();
             GameObject eyeRing = new();
@@ -43,7 +38,7 @@ namespace BiblicallyAccurateLasers
             return ringHolder;
         }
 
-        public static GameObject Crown(Transform parent, Vector3 localPosition, Vector3 localScale, int eyes = 7)
+        public static GameObject SpawnEyeCrown(int eyes = 7)
         {
             GameObject crown = new();
 
@@ -73,9 +68,6 @@ namespace BiblicallyAccurateLasers
             }
             eyesHolder.AddComponent<Spin>();
 
-            crown.transform.parent = parent.transform;
-            crown.transform.localPosition = localPosition;
-            crown.transform.localScale = localScale;
             crown.transform.rotation = Quaternion.Euler(90, 0, 0);
 
             return crown;
