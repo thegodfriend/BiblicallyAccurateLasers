@@ -7,10 +7,11 @@ using UObject = UnityEngine.Object;
 
 namespace BiblicallyAccurateLasers
 {
-    public class BiblicallyAccurateLasers : Mod, IGlobalSettings<Settings>
+    public class BiblicallyAccurateLasers : Mod, IGlobalSettings<Settings>, IMenuMod
     {
         internal static BiblicallyAccurateLasers Instance;
         public Settings settings = new();
+        public bool ToggleButtonInsideMenu => true;
 
         internal TextureStrings SpriteDict { get; private set; }
         public static Sprite GetSprite(string name) => Instance.SpriteDict.Get(name);
@@ -58,5 +59,26 @@ namespace BiblicallyAccurateLasers
         public void OnLoadGlobal(Settings _settings) => settings = _settings;
         public Settings OnSaveGlobal() => settings;
 
+        public List<IMenuMod.MenuEntry> GetMenuData(IMenuMod.MenuEntry? menu)
+        {
+            List<IMenuMod.MenuEntry> menus = new();
+
+            menus.Add(
+                new()
+                {
+                    Name = "Mod on",
+                    Description = "This will apply only to the next fight",
+                    Values = new string[]
+                    {
+                        Language.Language.Get("MOH_ON", "MainMenu"),
+                        Language.Language.Get("MOH_OFF", "MainMenu"),
+                    },
+                    Saver = i => settings.modOn = i == 0,
+                    Loader = () => settings.modOn ? 0 : 1
+                }
+            );
+
+            return menus;
+        }
     }
 }
