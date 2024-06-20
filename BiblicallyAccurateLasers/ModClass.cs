@@ -43,10 +43,11 @@ namespace BiblicallyAccurateLasers
         {
             if (settings.modOn && enemy.name.Contains("Radiance"))
             {
-                GameObject crown = GameObjectSpawns.SpawnEyeCrown();
+                /*GameObject crown = GameObjectSpawns.SpawnEyeCrown();
                 crown.transform.parent = enemy.transform;
                 crown.transform.localPosition = new Vector3(-0.1f, 2f, 0f);
-                crown.transform.localScale = Vector3.one;
+                crown.transform.localScale = Vector3.one;*/
+                //Crown is really distracting
 
                 GameObject eyeRing = GameObjectSpawns.SpawnEyeRing(settings.eyeCount);
                 eyeRing.transform.parent = enemy.transform;
@@ -66,8 +67,8 @@ namespace BiblicallyAccurateLasers
             menus.Add(
                 new()
                 {
-                    Name = "Mod on",
-                    Description = "This will apply only to the next fight",
+                    Name = "Mod On",
+                    Description = "This will take effect starting next fight",
                     Values = new string[]
                     {
                         Language.Language.Get("MOH_ON", "MainMenu"),
@@ -75,6 +76,45 @@ namespace BiblicallyAccurateLasers
                     },
                     Saver = i => settings.modOn = i == 0,
                     Loader = () => settings.modOn ? 0 : 1
+                }
+            );
+            menus.Add(
+                new()
+                {
+                    Name = "EotB text",
+                    Description = "Use the text changes from the original 'Eye Of The Beholder' mod",
+                    Values = new string[]
+                    {
+                        Language.Language.Get("MOH_ON", "MainMenu"),
+                        Language.Language.Get("MOH_OFF", "MainMenu"),
+                    },
+                    Saver = i => settings.originalText = i == 0,
+                    Loader = () => settings.originalText ? 0 : 1
+                }
+            );
+            menus.Add(
+                new()
+                {
+                    Name = "Eye Count",
+                    Description = "This will take effect starting next fight",
+                    Values = new string[]
+                    {
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                    },
+                    Saver = i => settings.eyeCount = i + 1,
+                    Loader = () => settings.eyeCount - 1
                 }
             );
 
