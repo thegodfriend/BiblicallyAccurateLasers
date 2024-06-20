@@ -42,9 +42,47 @@ namespace BiblicallyAccurateLasers
             if (enemy.name.Contains("Radiance"))
             {
                 GameObject crown = Crown(enemy.transform, new Vector3(-0.1f, 2f, 0f), Vector3.one);
+                GameObject eyeRing = EyeRing(10);
+                eyeRing.transform.parent = enemy.transform;
+                eyeRing.transform.localPosition = new Vector3(-0.1f, 1.5f, 0f);
+                eyeRing.transform.localScale = Vector3.one * 3;
             }
 
             return isAlreadyDead;
+        }
+
+        private GameObject EyeRing(int eyes)
+        {
+            GameObject ringHolder = new();
+            GameObject eyeRing = new();
+
+            for (int i = 0; i < eyes; i++)
+            {
+                GameObject eyeCarrier = new GameObject();
+                eyeCarrier.transform.parent = eyeRing.transform;
+                eyeCarrier.transform.localPosition = Vector3.zero;
+                eyeCarrier.transform.localScale = Vector3.one;
+
+                GameObject eye = new GameObject();
+                eye.AddComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.EyeKey);
+                eye.SetActive(true);
+                eye.transform.parent = eyeCarrier.transform;
+                eye.transform.localPosition = new Vector3(0, 2f, 0f);
+                eye.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
+
+                eyeCarrier.transform.localRotation = Quaternion.Euler(0, 0, i * 36f);
+                eye.transform.localRotation = Quaternion.Euler(0, 0, -i * 36f);
+
+                eye.AddComponent<Spin>().SetSpeed(0.5f);
+            }
+
+            eyeRing.transform.parent = ringHolder.transform;
+            eyeRing.transform.localPosition = new Vector3(0, 0, -1f);
+            eyeRing.transform.localScale = Vector3.one;
+            eyeRing.transform.localRotation = Quaternion.identity;
+            eyeRing.AddComponent<Spin>().SetSpeed(-0.5f);
+
+            return ringHolder;
         }
 
         private GameObject Crown(Transform parent, Vector3 localPosition, Vector3 localScale, int eyes = 7)
