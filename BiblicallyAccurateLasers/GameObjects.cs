@@ -56,8 +56,7 @@ namespace BiblicallyAccurateLasers
                 eyeCarrier.transform.localScale = Vector3.one;
 
                 GameObject eye = new();
-                eye.AddComponent<SpriteRenderer>();
-                eye.GetComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.EyeKey);
+                eye.AddComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.EyeKey);
                 eye.SetActive(true);
                 eye.transform.parent = eyeCarrier.transform;
                 eye.transform.localPosition = new Vector3(0, 3f, 0);
