@@ -43,20 +43,20 @@ namespace BiblicallyAccurateLasers
         private string LanguageGet(string key, string sheetTitle, string orig)
         {
             if (settings.originalText) switch (key)
-                {
-                    case "FINAL_BOSS_SUPER":
-                        return "";
-                    case "FINAL_BOSS_MAIN":
-                        return "Beauty";
-                    case "ABSOLUTE_RADIANCE_SUPER":
-                        return "";
-                    case "ABSOLUTE_RADIANCE_MAIN":
-                        return "Beauty";
-                    case "NAME_FINAL_BOSS":
-                        return "Beauty";
-                    case "GG_S_RADIANCE":
-                        return "is in the eye of the beholder.";
-                }
+            {
+                case "FINAL_BOSS_SUPER":
+                    return "";
+                case "FINAL_BOSS_MAIN":
+                    return "Beauty";
+                case "ABSOLUTE_RADIANCE_SUPER":
+                    return "";
+                case "ABSOLUTE_RADIANCE_MAIN":
+                    return "Beauty";
+                case "NAME_FINAL_BOSS":
+                    return "Beauty";
+                case "GG_S_RADIANCE":
+                    return "is in the eye of the beholder.";
+            }
             return orig;
         }
 
@@ -83,9 +83,8 @@ namespace BiblicallyAccurateLasers
 
         public List<IMenuMod.MenuEntry> GetMenuData(IMenuMod.MenuEntry? menu)
         {
-            List<IMenuMod.MenuEntry> menus = new();
-
-            menus.Add(
+            List<IMenuMod.MenuEntry> menus = new()
+            {
                 new()
                 {
                     Name = "Mod On",
@@ -97,9 +96,7 @@ namespace BiblicallyAccurateLasers
                     },
                     Saver = i => settings.modOn = i == 0,
                     Loader = () => settings.modOn ? 0 : 1
-                }
-            );
-            menus.Add(
+                },
                 new()
                 {
                     Name = "EotB text",
@@ -111,9 +108,7 @@ namespace BiblicallyAccurateLasers
                     },
                     Saver = i => settings.originalText = i == 0,
                     Loader = () => settings.originalText ? 0 : 1
-                }
-            );
-            menus.Add(
+                },
                 new()
                 {
                     Name = "Eye Count",
@@ -137,7 +132,7 @@ namespace BiblicallyAccurateLasers
                     Saver = i => settings.eyeCount = i + 1,
                     Loader = () => settings.eyeCount - 1
                 }
-            );
+            };
 
             return menus;
         }

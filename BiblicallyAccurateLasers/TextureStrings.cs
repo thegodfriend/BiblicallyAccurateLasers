@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace BiblicallyAccurateLasers
@@ -25,9 +21,10 @@ namespace BiblicallyAccurateLasers
 
             Assembly asm = Assembly.GetExecutingAssembly();
             _dict = new Dictionary<string, Sprite>();
-            var tmpTextures = new Dictionary<string, string>();
-
-            tmpTextures.Add(EyeKey, EyeFile);
+            var tmpTextures = new Dictionary<string, string>
+            {
+                { EyeKey, EyeFile }
+            };
 
             foreach (var pair in tmpTextures)
             {
