@@ -35,8 +35,29 @@ namespace BiblicallyAccurateLasers
             SpriteDict = new TextureStrings();
 
             ModHooks.OnEnableEnemyHook += EnemyEnabled;
+            ModHooks.LanguageGetHook += LanguageGet;
 
             Log("Initialized");
+        }
+
+        private string LanguageGet(string key, string sheetTitle, string orig)
+        {
+            if (settings.originalText) switch (key)
+                {
+                    case "FINAL_BOSS_SUPER":
+                        return "";
+                    case "FINAL_BOSS_MAIN":
+                        return "Beauty";
+                    case "ABSOLUTE_RADIANCE_SUPER":
+                        return "";
+                    case "ABSOLUTE_RADIANCE_MAIN":
+                        return "Beauty";
+                    case "NAME_FINAL_BOSS":
+                        return "Beauty";
+                    case "GG_S_RADIANCE":
+                        return "is in the eye of the beholder.";
+                }
+            return orig;
         }
 
         private bool EnemyEnabled(GameObject enemy, bool isAlreadyDead)
