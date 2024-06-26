@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UObject = UnityEngine.Object;
 
@@ -16,16 +17,18 @@ namespace BiblicallyAccurateLasers
         internal TextureStrings SpriteDict { get; private set; }
         public static Sprite GetSprite(string name) => Instance.SpriteDict.Get(name);
 
-        //public override List<ValueTuple<string, string>> GetPreloadNames()
-        //{
-        //    return new List<ValueTuple<string, string>>
-        //    {
-        //        new ValueTuple<string, string>("White_Palace_18", "White Palace Fly")
-        //    };
-        //}
+        public static readonly Dictionary<string, GameObject> _gameObjects = new();
+        private readonly Dictionary<string, ValueTuple<string, string>> _preloads = new()
+        {
+            ["Ascend Beam"] = ("GG_Radiance", "Boss Control/Absolute Radiance/Eye Beam Glow/Ascend Beam"),
+        };
+        public override List<ValueTuple<string, string>> GetPreloadNames()
+        {
+            return _preloads.Values.ToList();
+        }
 
         public BiblicallyAccurateLasers() : base("Biblically Accurate Lasers") { }
-        public override string GetVersion() => "0.0.0";
+        public override string GetVersion() => "0.1.0";
 
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
@@ -33,6 +36,11 @@ namespace BiblicallyAccurateLasers
 
             Instance = this;
             SpriteDict = new TextureStrings();
+
+            foreach (var (name, (scene, path)) in _preloads)
+            {
+                _gameObjects[name] = preloadedObjects[scene][path];
+            }
 
             ModHooks.OnEnableEnemyHook += EnemyEnabled;
             ModHooks.LanguageGetHook += LanguageGet;

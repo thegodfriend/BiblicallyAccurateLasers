@@ -6,17 +6,17 @@ namespace BiblicallyAccurateLasers
     {
         public static GameObject SpawnEyeRing(int eyes = 10)
         {
-            GameObject ringHolder = new();
-            GameObject eyeRing = new();
+            GameObject ringHolder = new("Eye Ring Holder");
+            GameObject eyeRing = new("Eye Ring");
 
             for (int i = 0; i < eyes; i++)
             {
-                GameObject eyeCarrier = new GameObject();
+                GameObject eyeCarrier = new GameObject("Eye Carrier "+ i);
                 eyeCarrier.transform.parent = eyeRing.transform;
                 eyeCarrier.transform.localPosition = Vector3.zero;
                 eyeCarrier.transform.localScale = Vector3.one;
 
-                GameObject eye = new GameObject();
+                GameObject eye = new GameObject("Eye");
                 eye.AddComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.EyeKey);
                 eye.SetActive(true);
                 eye.transform.parent = eyeCarrier.transform;
@@ -27,6 +27,8 @@ namespace BiblicallyAccurateLasers
                 eye.transform.localRotation = Quaternion.Euler(0, 0, -i * (360f/eyes));
 
                 eye.AddComponent<Spin>().SetSpeed(0.5f);
+
+                eye.AddComponent<LaserEye>();
             }
 
             eyeRing.transform.parent = ringHolder.transform;
