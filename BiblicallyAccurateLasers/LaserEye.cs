@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace BiblicallyAccurateLasers
@@ -48,6 +43,7 @@ namespace BiblicallyAccurateLasers
         {
             eyeBeamGlow.transform.localPosition = new Vector3(-1.2f, 0f, 0f);
             eyeBeamGlow.transform.rotation = Quaternion.identity;
+            //eyeBeamGlow.transform.localScale = Vector3.one / (0.24f);
 
             laser.SetActive(true);
             laserFsm.SetState("Inert");
