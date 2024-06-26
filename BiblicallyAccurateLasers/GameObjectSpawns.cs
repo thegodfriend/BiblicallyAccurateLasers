@@ -28,7 +28,7 @@ namespace BiblicallyAccurateLasers
 
                 eye.AddComponent<Spin>().SetSpeed(0.5f);
 
-                eye.AddComponent<LaserEye>();
+                eye.AddComponent<LaserEye>().SetTiming(10f, eyes, i);
             }
 
             eyeRing.transform.parent = ringHolder.transform;
