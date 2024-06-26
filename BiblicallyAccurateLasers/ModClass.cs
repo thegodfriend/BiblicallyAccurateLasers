@@ -20,7 +20,7 @@ namespace BiblicallyAccurateLasers
         public static readonly Dictionary<string, GameObject> _gameObjects = new();
         private readonly Dictionary<string, ValueTuple<string, string>> _preloads = new()
         {
-            ["Ascend Beam"] = ("GG_Radiance", "Boss Control/Absolute Radiance/Eye Beam Glow/Ascend Beam"),
+            ["Eye Beam Glow"] = ("GG_Radiance", "Boss Control/Absolute Radiance/Eye Beam Glow"),
         };
         public override List<ValueTuple<string, string>> GetPreloadNames()
         {

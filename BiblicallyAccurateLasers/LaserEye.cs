@@ -10,7 +10,7 @@ namespace BiblicallyAccurateLasers
 {
     internal class LaserEye : MonoBehaviour
     {
-
+        private GameObject eyeBeamGlow;
         private GameObject laser;
         private PlayMakerFSM laserFsm;
 
@@ -19,14 +19,15 @@ namespace BiblicallyAccurateLasers
 
         void Awake()
         {
-            laser = Instantiate(BiblicallyAccurateLasers._gameObjects["Ascend Beam"], transform);
+            eyeBeamGlow = Instantiate(BiblicallyAccurateLasers._gameObjects["Eye Beam Glow"], transform);
+            laser = eyeBeamGlow.transform.Find("Ascend Beam").gameObject;
             laserFsm = laser.LocateMyFSM("Control");
         }
 
         void Start()
         {
-            laser.transform.localPosition = Vector3.zero;
-            laser.transform.rotation = Quaternion.identity;
+            eyeBeamGlow.transform.localPosition = new Vector3(-1.2f, 0f, 0f);
+            eyeBeamGlow.transform.rotation = Quaternion.identity;
 
             laser.SetActive(true);
             laserFsm.SetState("Inert");
@@ -46,12 +47,14 @@ namespace BiblicallyAccurateLasers
         
         IEnumerator LaserCycle()
         {
+            eyeBeamGlow.SetActive(true);
             laserFsm.SendEvent("ANTIC");
             yield return new WaitForSeconds(0.5f);
             laserFsm.SendEvent("FIRE");
             yield return new WaitForSeconds(0.15f);
             laserFsm.SendEvent("END");
 
+            eyeBeamGlow.SetActive(false);
             time = 0;
             isFiring = false;
         }
