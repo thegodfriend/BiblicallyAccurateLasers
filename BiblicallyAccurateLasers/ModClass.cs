@@ -80,7 +80,7 @@ namespace BiblicallyAccurateLasers
 
                 GameObject eyeRing = GameObjectSpawns.SpawnEyeRing(settings.eyeCount);
                 eyeRing.transform.parent = enemy.transform;
-                eyeRing.transform.localPosition = new Vector3(-0.1f, 1.5f, 0f);
+                eyeRing.transform.localPosition = new Vector3(-0.1f, 1.5f, -0.001f);
                 eyeRing.transform.localScale = Vector3.one * 3;
             }
             return isAlreadyDead;

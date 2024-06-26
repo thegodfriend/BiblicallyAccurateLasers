@@ -32,7 +32,7 @@ namespace BiblicallyAccurateLasers
             }
 
             eyeRing.transform.parent = ringHolder.transform;
-            eyeRing.transform.localPosition = new Vector3(0, 0, -1f);
+            eyeRing.transform.localPosition = Vector3.zero;//new Vector3(0, 0, -1f);
             eyeRing.transform.localScale = Vector3.one;
             eyeRing.transform.localRotation = Quaternion.identity;
             eyeRing.AddComponent<Spin>().SetSpeed(-0.5f);

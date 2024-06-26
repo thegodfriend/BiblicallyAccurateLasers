@@ -12,10 +12,15 @@ namespace BiblicallyAccurateLasers
     {
 
         private GameObject laser;
+        private PlayMakerFSM laserFsm;
+
+        private bool isFiring = false;
+        private float time = 0;
 
         void Awake()
         {
             laser = Instantiate(BiblicallyAccurateLasers._gameObjects["Ascend Beam"], transform);
+            laserFsm = laser.LocateMyFSM("Control");
         }
 
         void Start()
@@ -24,7 +29,31 @@ namespace BiblicallyAccurateLasers
             laser.transform.rotation = Quaternion.identity;
 
             laser.SetActive(true);
-            laser.LocateMyFSM("Control").SetState("Antic");
+            laserFsm.SetState("Inert");
+        }
+
+        void Update()
+        {
+            time += Time.deltaTime;
+
+            if (time > 3f && !isFiring)
+            {
+                isFiring = true;
+                StartCoroutine(LaserCycle());
+            }
+        }
+
+        
+        IEnumerator LaserCycle()
+        {
+            laserFsm.SendEvent("ANTIC");
+            yield return new WaitForSeconds(0.5f);
+            laserFsm.SendEvent("FIRE");
+            yield return new WaitForSeconds(0.15f);
+            laserFsm.SendEvent("END");
+
+            time = 0;
+            isFiring = false;
         }
 
     }
