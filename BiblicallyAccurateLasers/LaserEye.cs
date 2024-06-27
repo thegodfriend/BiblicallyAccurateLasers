@@ -39,6 +39,10 @@ namespace BiblicallyAccurateLasers
             eyeBeamGlow.transform.rotation = Quaternion.identity;
             //eyeBeamGlow.transform.localScale = Vector3.one / (0.24f);
 
+            var ls = laser.transform.localScale;
+            ls.x *= 1 / 0.24f;
+            laser.transform.localScale = ls;
+
             laser.SetActive(true);
             laserFsm.SetState("Inert");
         }
