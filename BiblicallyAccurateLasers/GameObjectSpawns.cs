@@ -11,12 +11,12 @@ namespace BiblicallyAccurateLasers
 
             for (int i = 0; i < eyes; i++)
             {
-                GameObject eyeCarrier = new GameObject("Eye Carrier "+ i);
+                GameObject eyeCarrier = new("Eye Carrier "+ i);
                 eyeCarrier.transform.parent = eyeRing.transform;
                 eyeCarrier.transform.localPosition = Vector3.zero;
                 eyeCarrier.transform.localScale = Vector3.one;
 
-                GameObject eye = new GameObject("Eye");
+                GameObject eye = new("Eye");
                 eye.AddComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.EyeKey);
                 eye.SetActive(true);
                 eye.transform.parent = eyeCarrier.transform;
@@ -28,14 +28,9 @@ namespace BiblicallyAccurateLasers
 
                 eye.AddComponent<Spin>().SetSpeed(0.5f);
 
-
-                //float delay = (cycleLength / eyes * i) + firstLaserAt;
-
                 Settings settings = BiblicallyAccurateLasers.Instance.settings;
-                eye.AddComponent<LaserEye>().DelayLaserBy(i *
-                    //settings.offsetTimeBetweenLasers
-                    (settings.anticTime + settings.fireTime + settings.cooldown) / eyes
-                    );//.SetTiming(0.5f, 0.15f, 3f, delay);
+                eye.AddComponent<LaserEye>()
+                    .DelayLaserBy(i * (settings.anticTime + settings.fireTime + settings.cooldown) / eyes);
             }
 
             eyeRing.transform.parent = ringHolder.transform;

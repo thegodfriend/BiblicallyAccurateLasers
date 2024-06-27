@@ -12,36 +12,10 @@ namespace BiblicallyAccurateLasers
         private bool isFiring = false;
         private float time = 0;
 
-        private static Settings settings = BiblicallyAccurateLasers.Instance.settings;
-
-        /*private float _anticTime = 0.5f;
-        private float _fireTime = 0.15f;
-        private float _cooldown = 3f;*/
+        private static readonly Settings settings = BiblicallyAccurateLasers.Instance.settings;
 
         private Vector3 targetPosition;
         
-        /*public void SetTiming(float totalTime, int totalEyes, int index)
-        {
-            if (totalTime < anticTime + fireTime)
-            {
-                BiblicallyAccurateLasers.Instance.LogError("Total time passed into SetTiming less than time it takes to fire laser.");
-                return;
-            }
-
-            cooldown = totalTime - (anticTime + fireTime);
-
-            float delay = (totalTime / totalEyes) * index;
-            time = cooldown - delay;
-        }*/
-
-        /*public void SetTiming(float anticTime, float fireTime, float sleepTime, float delay)
-        {
-            _anticTime = anticTime;
-            _fireTime = fireTime;
-            _cooldown = sleepTime;
-            time = -delay;
-        }*/
-
         public void DelayLaserBy(float delay)
         {
             time = -delay;

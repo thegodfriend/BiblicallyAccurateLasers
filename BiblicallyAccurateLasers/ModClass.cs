@@ -206,34 +206,24 @@ namespace BiblicallyAccurateLasers
                         "2.75s",
                         "3.00s",
                         "3.25s",
+                        "3.50s",
+                        "3.75s",
+                        "4.00s",
+                        "4.25s",
+                        "4.50s",
+                        "4.75s",
+                        "5.00s",
+                        "5.25s",
+                        "5.50s",
+                        "5.75s",
+                        "6.00s",
+                        "6.25s",
+                        "6.25s",
+                        "6.50s",
                     },
                     Saver = i => settings.cooldown = i * 0.25f,
                     Loader = () => (int)(settings.cooldown / 0.25f)
                 },
-                /*new()
-                {
-                    Name = "Offset Delay Between Lasers",
-                    Description = "This will take effect starting next fight",
-                    Values = new string[]
-                    {
-                        "0s",
-                        "0.25s",
-                        "0.50s",
-                        "0.75s",
-                        "1.00s",
-                        "1.25s",
-                        "1.50s",
-                        "1.75s",
-                        "2.00s",
-                        "2.25s",
-                        "2.50s",
-                        "2.75s",
-                        "3.00s",
-                        "3.25s",
-                    },
-                    Saver = i => settings.offsetTimeBetweenLasers = i * 0.25f,
-                    Loader = () => (int)(settings.offsetTimeBetweenLasers / 0.25f)
-                },*/
             };
             
             return menus;
