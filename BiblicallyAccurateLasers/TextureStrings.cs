@@ -12,6 +12,9 @@ namespace BiblicallyAccurateLasers
         public const string EyeKey = "Eye";
         private const string EyeFile = "BiblicallyAccurateLasers.Resources.eye.png";
 
+        public const string TargetKey = "Target";
+        private const string TargetFile = "BiblicallyAccurateLasers.Resources.target.png";
+
         private readonly Dictionary<string, Sprite> _dict;
 
         public TextureStrings()
@@ -23,7 +26,8 @@ namespace BiblicallyAccurateLasers
             _dict = new Dictionary<string, Sprite>();
             var tmpTextures = new Dictionary<string, string>
             {
-                { EyeKey, EyeFile }
+                { EyeKey, EyeFile },
+                { TargetKey, TargetFile },
             };
 
             foreach (var pair in tmpTextures)

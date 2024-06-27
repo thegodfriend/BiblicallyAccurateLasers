@@ -15,6 +15,7 @@ namespace BiblicallyAccurateLasers
         private static readonly Settings settings = BiblicallyAccurateLasers.Instance.settings;
 
         private Vector3 targetPosition;
+        private GameObject targetMarker = new("Target Marker");
         
         public void DelayLaserBy(float delay)
         {
@@ -26,6 +27,10 @@ namespace BiblicallyAccurateLasers
             eyeBeamGlow = Instantiate(BiblicallyAccurateLasers._gameObjects["Eye Beam Glow"], transform);
             laser = eyeBeamGlow.transform.Find("Ascend Beam").gameObject;
             laserFsm = laser.LocateMyFSM("Control");
+
+            targetMarker.AddComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.TargetKey);
+            targetMarker.transform.localScale = Vector3.one * 0.5f;
+            targetMarker.AddComponent<Spin>().SetSpeed(0.25f);
         }
 
         void Start()
@@ -67,11 +72,14 @@ namespace BiblicallyAccurateLasers
             eyeBeamGlow.SetActive(true);
 
             targetPosition = HeroController.instance.transform.position;
+            targetMarker.transform.position = targetPosition;
             
             laserFsm.SendEvent("ANTIC");
+            targetMarker.SetActive(true);
             yield return new WaitForSeconds(settings.anticTime);
             laserFsm.SendEvent("FIRE");
             yield return new WaitForSeconds(settings.fireTime);
+            targetMarker.SetActive(false);
             laserFsm.SendEvent("END");
 
             eyeBeamGlow.SetActive(false);

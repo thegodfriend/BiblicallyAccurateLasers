@@ -52,10 +52,13 @@
     <WriteLinesToFile File="$(ExportDir)/$(TargetName)/SHA.txt" Lines="$(OutputFileString);@(FilesWithHashes->'%(FileHash)');$(OutputZipString);@(ZipFilesWithHashes->'%(FileHash)')" Overwrite="true" Encoding="UTF-8" />
   </Target>
   <ItemGroup>
+    <None Remove="Resources\absolute_radiance_sun_dial_fix.png" />
     <None Remove="Resources\eye.png" />
+    <None Remove="Resources\target.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\eye.png" />
+    <EmbeddedResource Include="Resources\target.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
