@@ -65,7 +65,7 @@ namespace BiblicallyAccurateLasers
 
         private void AimLaser(Vector3 targetPos)
         {
-            float rotation = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x) * (180 / Mathf.PI);
+            float rotation = Mathf.Atan2(targetPos.y - laser.transform.position.y, targetPos.x - laser.transform.position.x) * (180 / Mathf.PI);
             Vector3 euler_rot = laser.transform.rotation.eulerAngles;
             euler_rot.z = rotation;
             laser.transform.rotation = Quaternion.Euler(euler_rot);
