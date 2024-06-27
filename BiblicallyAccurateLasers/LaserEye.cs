@@ -11,14 +11,16 @@ namespace BiblicallyAccurateLasers
 
         private bool isFiring = false;
         private float time = 0;
-        private float cooldown = 3f;
 
-        private const float anticTime = 0.5f;
-        private const float fireTime = 0.15f;
+        private static Settings settings = BiblicallyAccurateLasers.Instance.settings;
+
+        /*private float _anticTime = 0.5f;
+        private float _fireTime = 0.15f;
+        private float _cooldown = 3f;*/
 
         private Vector3 targetPosition;
         
-        public void SetTiming(float totalTime, int totalEyes, int index)
+        /*public void SetTiming(float totalTime, int totalEyes, int index)
         {
             if (totalTime < anticTime + fireTime)
             {
@@ -30,6 +32,19 @@ namespace BiblicallyAccurateLasers
 
             float delay = (totalTime / totalEyes) * index;
             time = cooldown - delay;
+        }*/
+
+        /*public void SetTiming(float anticTime, float fireTime, float sleepTime, float delay)
+        {
+            _anticTime = anticTime;
+            _fireTime = fireTime;
+            _cooldown = sleepTime;
+            time = -delay;
+        }*/
+
+        public void DelayLaserBy(float delay)
+        {
+            time = -delay;
         }
 
         void Awake()
@@ -53,7 +68,7 @@ namespace BiblicallyAccurateLasers
         {
             time += Time.deltaTime;
 
-            if (time > cooldown && !isFiring)
+            if (time > settings.cooldown && !isFiring)
             {
                 isFiring = true;
                 StartCoroutine(LaserCycle());
@@ -80,9 +95,9 @@ namespace BiblicallyAccurateLasers
             targetPosition = HeroController.instance.transform.position;
             
             laserFsm.SendEvent("ANTIC");
-            yield return new WaitForSeconds(anticTime);
+            yield return new WaitForSeconds(settings.anticTime);
             laserFsm.SendEvent("FIRE");
-            yield return new WaitForSeconds(fireTime);
+            yield return new WaitForSeconds(settings.fireTime);
             laserFsm.SendEvent("END");
 
             eyeBeamGlow.SetActive(false);

@@ -28,7 +28,14 @@ namespace BiblicallyAccurateLasers
 
                 eye.AddComponent<Spin>().SetSpeed(0.5f);
 
-                eye.AddComponent<LaserEye>().SetTiming(10f, eyes, i);
+
+                //float delay = (cycleLength / eyes * i) + firstLaserAt;
+
+                Settings settings = BiblicallyAccurateLasers.Instance.settings;
+                eye.AddComponent<LaserEye>().DelayLaserBy(i *
+                    //settings.offsetTimeBetweenLasers
+                    (settings.anticTime + settings.fireTime + settings.cooldown) / eyes
+                    );//.SetTiming(0.5f, 0.15f, 3f, delay);
             }
 
             eyeRing.transform.parent = ringHolder.transform;

@@ -137,9 +137,105 @@ namespace BiblicallyAccurateLasers
                     },
                     Saver = i => settings.eyeCount = i + 1,
                     Loader = () => settings.eyeCount - 1
-                }
+                },
+                new()
+                {
+                    Name = "Laser Antic Time",
+                    //Description = "This will take effect starting next fight",
+                    Values = new string[]
+                    {
+                        "0s",
+                        "0.1s",
+                        "0.2s",
+                        "0.3s",
+                        "0.4s",
+                        "0.5s",
+                        "0.6s",
+                        "0.7s",
+                        "0.8s",
+                        "0.9s",
+                        "1.0s",
+                        "1.1s",
+                        "1.2s",
+                        "1.3s",
+                    },
+                    Saver = i => settings.anticTime = i / 10f,
+                    Loader = () => (int)(settings.anticTime * 10f)
+                },
+                new()
+                {
+                    Name = "Laser Damage Time",
+                    //Description = "This will take effect starting next fight",
+                    Values = new string[]
+                    {
+                        "0.15s",
+                        "0.30s",
+                        "0.45s",
+                        "0.60s",
+                        "0.75s",
+                        "0.90s",
+                        "1.05s",
+                        "1.20s",
+                        "1.35s",
+                        "1.50s",
+                        "1.65s",
+                        "1.80s",
+                        "1.95s",
+                        "2.10s",
+                    },
+                    Saver = i => settings.fireTime = (i + 1) * 0.15f,
+                    Loader = () => (int)(settings.fireTime / 0.15f) - 1
+                },
+                new()
+                {
+                    Name = "Laser Cooldown Time",
+                    //Description = "This will take effect starting next fight",
+                    Values = new string[]
+                    {
+                        "0s",
+                        "0.25s",
+                        "0.50s",
+                        "0.75s",
+                        "1.00s",
+                        "1.25s",
+                        "1.50s",
+                        "1.75s",
+                        "2.00s",
+                        "2.25s",
+                        "2.50s",
+                        "2.75s",
+                        "3.00s",
+                        "3.25s",
+                    },
+                    Saver = i => settings.cooldown = i * 0.25f,
+                    Loader = () => (int)(settings.cooldown / 0.25f)
+                },
+                /*new()
+                {
+                    Name = "Offset Delay Between Lasers",
+                    Description = "This will take effect starting next fight",
+                    Values = new string[]
+                    {
+                        "0s",
+                        "0.25s",
+                        "0.50s",
+                        "0.75s",
+                        "1.00s",
+                        "1.25s",
+                        "1.50s",
+                        "1.75s",
+                        "2.00s",
+                        "2.25s",
+                        "2.50s",
+                        "2.75s",
+                        "3.00s",
+                        "3.25s",
+                    },
+                    Saver = i => settings.offsetTimeBetweenLasers = i * 0.25f,
+                    Loader = () => (int)(settings.offsetTimeBetweenLasers / 0.25f)
+                },*/
             };
-
+            
             return menus;
         }
     }
