@@ -1,4 +1,6 @@
-﻿using Modding;
+﻿using IL;
+using Modding;
+using Modding.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,10 +78,7 @@ namespace BiblicallyAccurateLasers
                 crown.transform.localScale = Vector3.one;*/
                 //Crown is really distracting
 
-                GameObject eyeRing = GameObjectSpawns.SpawnEyeRing(settings.eyeCount);
-                eyeRing.transform.parent = enemy.transform;
-                eyeRing.transform.localPosition = new Vector3(-0.1f, 1.5f, -0.001f);
-                eyeRing.transform.localScale = Vector3.one * 3;
+                enemy.GetOrAddComponent<RadianceLaserControl>();
             }
             return isAlreadyDead;
         }
