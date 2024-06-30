@@ -15,7 +15,7 @@ namespace BiblicallyAccurateLasers
         private static readonly Settings settings = BiblicallyAccurateLasers.Instance.settings;
 
         private Vector3 targetPosition;
-        private GameObject targetMarker = new("Target Marker");
+        public GameObject targetMarker = new("Target Marker");
         
         public void DelayLaserBy(float delay)
         {

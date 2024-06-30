@@ -39,6 +39,10 @@ namespace BiblicallyAccurateLasers
                 {
                     method = () => {
                         eyeRing.SetActive(false);
+                        foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
+                        {
+                            laserEye.targetMarker.SetActive(false);
+                        }
                     }
                 };
 
@@ -64,6 +68,28 @@ namespace BiblicallyAccurateLasers
                 state.Actions = newActions;
                 a.Init(state);
             }
+            foreach (FsmState state in _phaseControlFSM.FsmStates.Where(s => s.Name == "Set Ascend"))
+            {
+                FsmStateAction[] currentActions = state.Actions;
+                FsmStateAction[] newActions = new FsmStateAction[currentActions.Length + 1];
+
+                FsmStateAction a = new MethodAction
+                {
+                    method = () => {
+                        eyeRing.SetActive(false);
+                        foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
+                        {
+                            laserEye.targetMarker.SetActive(false);
+                        }
+                    }
+                };
+
+                currentActions.CopyTo(newActions, 0);
+                newActions[currentActions.Length] = a;
+
+                state.Actions = newActions;
+                a.Init(state);
+            }
 
         }
 
@@ -71,6 +97,8 @@ namespace BiblicallyAccurateLasers
 
     internal class MethodAction : FsmStateAction
     {
+        // Copied from SFCore
+
         public Action method;
 
         public override void Reset()
