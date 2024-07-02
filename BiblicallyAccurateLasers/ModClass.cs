@@ -28,7 +28,7 @@ namespace BiblicallyAccurateLasers
         }
 
         public BiblicallyAccurateLasers() : base("Biblically Accurate Lasers") { }
-        public override string GetVersion() => "0.1.0";
+        public override string GetVersion() => "1.0.0";
 
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
