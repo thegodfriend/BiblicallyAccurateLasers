@@ -217,8 +217,8 @@ namespace BiblicallyAccurateLasers
                         "5.75s",
                         "6.00s",
                         "6.25s",
-                        "6.25s",
                         "6.50s",
+                        "6.75s",
                     },
                     Saver = i => settings.cooldown = i * 0.25f,
                     Loader = () => (int)(settings.cooldown / 0.25f)
