@@ -124,7 +124,7 @@ namespace BiblicallyAccurateLasers
                 {
                     method = () => {
                         BiblicallyAccurateLasers.Instance.Log(_phaseControlFSM.ActiveStateName);
-                        if (_phaseControlFSM.ActiveStateName != "Set Ascend")
+                        if (gameObject.LocateMyFSM("Control").ActiveStateName != "Plat Setup")
                             foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
                             {
                                 laserEye.SetActive(true);
