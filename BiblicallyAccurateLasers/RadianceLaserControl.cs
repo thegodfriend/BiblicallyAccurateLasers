@@ -15,6 +15,7 @@ namespace BiblicallyAccurateLasers
         GameObject eyeRing;
 
         PlayMakerFSM _phaseControlFSM;
+        PlayMakerFSM _teleportFSM;
 
         void Awake()
         {
@@ -24,6 +25,7 @@ namespace BiblicallyAccurateLasers
             eyeRing.transform.localScale = Vector3.one * 3;
 
             _phaseControlFSM = gameObject.LocateMyFSM("Phase Control");
+            _teleportFSM = gameObject.LocateMyFSM("Teleport");
         }
 
         void Start()
@@ -37,7 +39,6 @@ namespace BiblicallyAccurateLasers
                 FsmStateAction a = new MethodAction
                 {
                     method = () => {
-                        //eyeRing.SetActive(false);
                         foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
                         {
                             laserEye.SetActive(false);
@@ -92,6 +93,49 @@ namespace BiblicallyAccurateLasers
                 a.Init(state);
             }
 
+            foreach (FsmState state in _teleportFSM.FsmStates.Where(s => s.Name == "Antic"))
+            {
+                FsmStateAction[] currentActions = state.Actions;
+                FsmStateAction[] newActions = new FsmStateAction[currentActions.Length + 1];
+
+                FsmStateAction a = new MethodAction
+                {
+                    method = () => {
+                        foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
+                        {
+                            laserEye.SetActive(false);
+                        }
+                    }
+                };
+
+                currentActions.CopyTo(newActions, 0);
+                newActions[currentActions.Length] = a;
+
+                state.Actions = newActions;
+                a.Init(state);
+            }
+            foreach (FsmState state in _teleportFSM.FsmStates.Where(s => s.Name == "Notify"))
+            {
+                FsmStateAction[] currentActions = state.Actions;
+                FsmStateAction[] newActions = new FsmStateAction[currentActions.Length + 1];
+
+                FsmStateAction a = new MethodAction
+                {
+                    method = () => {
+                        foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
+                        {
+                            laserEye.SetActive(true);
+                        }
+                    }
+                };
+
+                currentActions.CopyTo(newActions, 0);
+                newActions[currentActions.Length] = a;
+
+                state.Actions = newActions;
+                a.Init(state);
+            }
+            
         }
 
     }
