@@ -1,5 +1,4 @@
-﻿using IL;
-using Modding;
+﻿using Modding;
 using Modding.Utils;
 using System;
 using System.Collections.Generic;
@@ -140,7 +139,6 @@ namespace BiblicallyAccurateLasers
                 new()
                 {
                     Name = "Laser Antic Time",
-                    //Description = "This will take effect starting next fight",
                     Values = new string[]
                     {
                         "0s",
@@ -188,7 +186,6 @@ namespace BiblicallyAccurateLasers
                 new()
                 {
                     Name = "Laser Cooldown Time",
-                    //Description = "This will take effect starting next fight",
                     Values = new string[]
                     {
                         "0s",
