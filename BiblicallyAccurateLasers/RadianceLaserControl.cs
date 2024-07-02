@@ -1,10 +1,6 @@
 ﻿using HutongGames.PlayMaker;
-using JetBrains.Annotations;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace BiblicallyAccurateLasers
@@ -74,27 +70,7 @@ namespace BiblicallyAccurateLasers
                 state.Actions = newActions;
                 a.Init(state);
             }
-            /*foreach (FsmState state in _phaseControlFSM.FsmStates.Where(s => s.Name == "Set Ascend"))
-            {
-                FsmStateAction[] currentActions = state.Actions;
-                FsmStateAction[] newActions = new FsmStateAction[currentActions.Length + 1];
-
-                FsmStateAction a = new MethodAction
-                {
-                    method = () => {
-                        foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
-                        {
-                            laserEye.SetActive(false);
-                        }
-                    }
-                };
-
-                currentActions.CopyTo(newActions, 0);
-                newActions[currentActions.Length] = a;
-
-                state.Actions = newActions;
-                a.Init(state);
-            }*/
+            
             foreach (FsmState state in _controlFSM.FsmStates.Where(s => s.Name == "Kill Hit" || s.Name == "Final Impact"))
             {
                 FsmStateAction[] currentActions = state.Actions;

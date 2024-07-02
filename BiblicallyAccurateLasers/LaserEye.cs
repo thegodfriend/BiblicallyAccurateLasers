@@ -74,17 +74,6 @@ namespace BiblicallyAccurateLasers
                 }
                 else AimLaser(targetPosition);
             }
-
-            /*if (time > settings.cooldown && !isFiring)
-            {
-                isFiring = true;
-                StartCoroutine(LaserCycle());
-            }
-            else if (isFiring)
-            {
-                AimLaser(targetPosition);
-            }*/
-
         }
 
         private void AimLaser(Vector3 targetPos)
