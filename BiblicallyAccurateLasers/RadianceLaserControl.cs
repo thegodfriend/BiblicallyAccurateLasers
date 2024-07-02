@@ -14,6 +14,7 @@ namespace BiblicallyAccurateLasers
 
         GameObject eyeRing;
 
+        PlayMakerFSM _controlFSM;
         PlayMakerFSM _phaseControlFSM;
         PlayMakerFSM _teleportFSM;
 
@@ -24,6 +25,7 @@ namespace BiblicallyAccurateLasers
             eyeRing.transform.localPosition = new Vector3(-0.1f, 1.5f, -0.001f);
             eyeRing.transform.localScale = Vector3.one * 3;
 
+            _controlFSM = gameObject.LocateMyFSM("Control");
             _phaseControlFSM = gameObject.LocateMyFSM("Phase Control");
             _teleportFSM = gameObject.LocateMyFSM("Teleport");
         }
@@ -93,6 +95,27 @@ namespace BiblicallyAccurateLasers
                 state.Actions = newActions;
                 a.Init(state);
             }*/
+            foreach (FsmState state in _controlFSM.FsmStates.Where(s => s.Name == "Kill Hit" || s.Name == "Final Impact"))
+            {
+                FsmStateAction[] currentActions = state.Actions;
+                FsmStateAction[] newActions = new FsmStateAction[currentActions.Length + 1];
+
+                FsmStateAction a = new MethodAction
+                {
+                    method = () => {
+                        foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
+                        {
+                            laserEye.SetActive(false);
+                        }
+                    }
+                };
+
+                currentActions.CopyTo(newActions, 0);
+                newActions[currentActions.Length] = a;
+
+                state.Actions = newActions;
+                a.Init(state);
+            }
 
             foreach (FsmState state in _teleportFSM.FsmStates.Where(s => s.Name == "Antic"))
             {
@@ -124,7 +147,7 @@ namespace BiblicallyAccurateLasers
                 {
                     method = () => {
                         BiblicallyAccurateLasers.Instance.Log(_phaseControlFSM.ActiveStateName);
-                        if (gameObject.LocateMyFSM("Control").ActiveStateName != "Plat Setup")
+                        if (_controlFSM.ActiveStateName != "Plat Setup")
                             foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
                             {
                                 laserEye.SetActive(true);
