@@ -10,6 +10,6 @@ namespace BiblicallyAccurateLasers
 
         public float anticTime = 0.5f;
         public float fireTime = 0.15f;
-        public float cooldown = 3f;
+        public float cooldown = 6.5f;
     }
 }

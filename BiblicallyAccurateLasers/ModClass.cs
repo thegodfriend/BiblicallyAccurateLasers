@@ -161,7 +161,7 @@ namespace BiblicallyAccurateLasers
                     Saver = i => settings.anticTime = i / 10f,
                     Loader = () => (int)(settings.anticTime * 10f)
                 },
-                new()
+                /*new()
                 {
                     Name = "Laser Damage Time",
                     //Description = "This will take effect starting next fight",
@@ -184,7 +184,7 @@ namespace BiblicallyAccurateLasers
                     },
                     Saver = i => settings.fireTime = (i + 1) * 0.15f,
                     Loader = () => (int)(settings.fireTime / 0.15f) - 1
-                },
+                },*/
                 new()
                 {
                     Name = "Laser Cooldown Time",
