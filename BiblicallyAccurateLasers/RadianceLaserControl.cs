@@ -30,6 +30,7 @@ namespace BiblicallyAccurateLasers
 
         void Start()
         {
+            // MethodAction addition process in each foreach taken from SFCore, under MIT License
 
             foreach (FsmState state in _phaseControlFSM.FsmStates.Where(s => s.Name == "Stun 1"))
             {
@@ -71,7 +72,7 @@ namespace BiblicallyAccurateLasers
                 state.Actions = newActions;
                 a.Init(state);
             }
-            foreach (FsmState state in _phaseControlFSM.FsmStates.Where(s => s.Name == "Set Ascend"))
+            /*foreach (FsmState state in _phaseControlFSM.FsmStates.Where(s => s.Name == "Set Ascend"))
             {
                 FsmStateAction[] currentActions = state.Actions;
                 FsmStateAction[] newActions = new FsmStateAction[currentActions.Length + 1];
@@ -91,7 +92,7 @@ namespace BiblicallyAccurateLasers
 
                 state.Actions = newActions;
                 a.Init(state);
-            }
+            }*/
 
             foreach (FsmState state in _teleportFSM.FsmStates.Where(s => s.Name == "Antic"))
             {
@@ -122,10 +123,12 @@ namespace BiblicallyAccurateLasers
                 FsmStateAction a = new MethodAction
                 {
                     method = () => {
-                        foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
-                        {
-                            laserEye.SetActive(true);
-                        }
+                        BiblicallyAccurateLasers.Instance.Log(_phaseControlFSM.ActiveStateName);
+                        if (_phaseControlFSM.ActiveStateName != "Set Ascend")
+                            foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
+                            {
+                                laserEye.SetActive(true);
+                            }
                     }
                 };
 
