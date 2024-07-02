@@ -24,7 +24,6 @@ namespace BiblicallyAccurateLasers
             eyeRing.transform.localScale = Vector3.one * 3;
 
             _phaseControlFSM = gameObject.LocateMyFSM("Phase Control");
-
         }
 
         void Start()
@@ -38,10 +37,10 @@ namespace BiblicallyAccurateLasers
                 FsmStateAction a = new MethodAction
                 {
                     method = () => {
-                        eyeRing.SetActive(false);
+                        //eyeRing.SetActive(false);
                         foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
                         {
-                            laserEye.targetMarker.SetActive(false);
+                            laserEye.SetActive(false);
                         }
                     }
                 };
@@ -59,7 +58,10 @@ namespace BiblicallyAccurateLasers
                 FsmStateAction a = new MethodAction
                 {
                     method = () => {
-                        eyeRing.SetActive(true);
+                        foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
+                        {
+                            laserEye.SetActive(true);
+                        }
                     }
                 };
 
@@ -76,10 +78,9 @@ namespace BiblicallyAccurateLasers
                 FsmStateAction a = new MethodAction
                 {
                     method = () => {
-                        eyeRing.SetActive(false);
                         foreach (LaserEye laserEye in eyeRing.transform.GetComponentsInChildren<LaserEye>())
                         {
-                            laserEye.targetMarker.SetActive(false);
+                            laserEye.SetActive(false);
                         }
                     }
                 };
@@ -97,7 +98,7 @@ namespace BiblicallyAccurateLasers
 
     internal class MethodAction : FsmStateAction
     {
-        // Copied from SFCore
+        // Copied from SFCore, under MIT License
 
         public Action method;
 

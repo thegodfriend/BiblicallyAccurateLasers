@@ -5,9 +5,12 @@ namespace BiblicallyAccurateLasers
 {
     internal class LaserEye : MonoBehaviour
     {
+        private bool isActive = true;
+
         private GameObject eyeBeamGlow;
         private GameObject laser;
         private PlayMakerFSM laserFsm;
+        private SpriteRenderer eyeSprite;
 
         private bool isFiring = false;
         private float time = 0;
@@ -22,12 +25,20 @@ namespace BiblicallyAccurateLasers
             time = -delay;
         }
 
+        public void SetActive(bool active)
+        {
+            isActive = active;
+            eyeSprite.enabled = active;
+            targetMarker.GetComponent<SpriteRenderer>().enabled = active;
+        }
+
         void Awake()
         {
             eyeBeamGlow = Instantiate(BiblicallyAccurateLasers._gameObjects["Eye Beam Glow"], transform);
             laser = eyeBeamGlow.transform.Find("Ascend Beam").gameObject;
             laserFsm = laser.LocateMyFSM("Control");
-
+            eyeSprite = gameObject.GetComponent<SpriteRenderer>();
+            
             targetMarker.AddComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.TargetKey);
             targetMarker.transform.localScale = Vector3.one * 0.5f;
             targetMarker.AddComponent<Spin>().SetSpeed(0.25f);
@@ -51,7 +62,20 @@ namespace BiblicallyAccurateLasers
         {
             time += Time.deltaTime;
 
-            if (time > settings.cooldown && !isFiring)
+            if (time > settings.cooldown)
+            {
+                if (!isFiring)
+                {
+                    isFiring = true;
+                    if (isActive)
+                        StartCoroutine(LaserCycle());
+                    else
+                        StartCoroutine(EmptyCycle());
+                }
+                else AimLaser(targetPosition);
+            }
+
+            /*if (time > settings.cooldown && !isFiring)
             {
                 isFiring = true;
                 StartCoroutine(LaserCycle());
@@ -59,7 +83,7 @@ namespace BiblicallyAccurateLasers
             else if (isFiring)
             {
                 AimLaser(targetPosition);
-            }
+            }*/
 
         }
 
@@ -81,12 +105,23 @@ namespace BiblicallyAccurateLasers
             laserFsm.SendEvent("ANTIC");
             targetMarker.SetActive(true);
             yield return new WaitForSeconds(settings.anticTime);
-            laserFsm.SendEvent("FIRE");
+            if (isActive)
+                laserFsm.SendEvent("FIRE");
+            else
+                laserFsm.SetState("Inert");
             yield return new WaitForSeconds(settings.fireTime);
             targetMarker.SetActive(false);
             laserFsm.SendEvent("END");
 
             eyeBeamGlow.SetActive(false);
+            time = 0;
+            isFiring = false;
+        }
+
+        IEnumerator EmptyCycle()
+        {
+            yield return new WaitForSeconds(settings.anticTime);
+            yield return new WaitForSeconds(settings.fireTime);
             time = 0;
             isFiring = false;
         }
