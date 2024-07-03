@@ -15,7 +15,7 @@ namespace BiblicallyAccurateLasers
 
         public void Update()
         {
-            rot += speed * Time.timeScale;
+            rot += speed * Time.deltaTime;
             transform.localRotation = Quaternion.Euler(0, 0, rot);
         }
 

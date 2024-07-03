@@ -41,7 +41,7 @@ namespace BiblicallyAccurateLasers
             
             targetMarker.AddComponent<SpriteRenderer>().sprite = BiblicallyAccurateLasers.GetSprite(TextureStrings.TargetKey);
             targetMarker.transform.localScale = Vector3.one * 0.5f;
-            targetMarker.AddComponent<Spin>().SetSpeed(0.25f);
+            targetMarker.AddComponent<Spin>().SetSpeed(30f);
         }
 
         void Start()

@@ -27,7 +27,7 @@ namespace BiblicallyAccurateLasers
         }
 
         public BiblicallyAccurateLasers() : base("Biblically Accurate Lasers") { }
-        public override string GetVersion() => "1.0.0";
+        public override string GetVersion() => "1.1.0";
 
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
@@ -132,6 +132,10 @@ namespace BiblicallyAccurateLasers
                         "11",
                         "12",
                         "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
                     },
                     Saver = i => settings.eyeCount = i + 1,
                     Loader = () => settings.eyeCount - 1
@@ -186,6 +190,7 @@ namespace BiblicallyAccurateLasers
                 new()
                 {
                     Name = "Laser Cooldown Time",
+                    Description = "Refers to the cooldown of each laser, not the time between two lasers.",
                     Values = new string[]
                     {
                         "0s",
@@ -219,6 +224,21 @@ namespace BiblicallyAccurateLasers
                     },
                     Saver = i => settings.cooldown = i * 0.25f,
                     Loader = () => (int)(settings.cooldown / 0.25f)
+                },
+                new()
+                {
+                    Name = "Ring Speed",
+                    Description = "This will take effect starting next fight",
+                    Values = new string[]
+                    {
+                        "Slow", // 45
+                        "Normal", // 60
+                        "Fast", // 75
+                        "Faster", // 90
+                        "Fastest", // 105
+                    },
+                    Saver = i => settings.ringSpeed = i * 15 + 45,
+                    Loader = () => (int)(settings.ringSpeed / 15f) - 3
                 },
             };
             
